@@ -35,9 +35,18 @@ define('PLUGIN_SMS_VERSION', '0.0.1');
  * @return void
  */
 function plugin_init_sms() {
-   global $PLUGIN_HOOKS;
+   global $PLUGIN_HOOKS, $CFG_GLPI;
+   $plugin = new Plugin();
 
    $PLUGIN_HOOKS['csrf_compliant']['sms'] = true;
+
+   if ($plugin->isActivated('sms')) {
+      NotificationTemplateTemplate::registerMode(
+         NotificationTemplateTemplate::MODE_SMS,
+         __('SMS', 'plugin_sms')
+      );
+      $CFG_GLPI['class_notifications_smssetting'] = 'PluginSmsNotificationSmsSetting';
+   }
 }
 
 
@@ -54,7 +63,7 @@ function plugin_version_sms() {
       'author'         => '<a href="http://www.teclib.com">Teclib\'</a>',
       'license'        => '',
       'homepage'       => '',
-      'minGlpiVersion' => '9.1'
+      'minGlpiVersion' => '9.2'
    ];
 }
 
