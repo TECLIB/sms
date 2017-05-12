@@ -1,0 +1,55 @@
+<root>
+   <name>sms</name>
+   <key>sms</key>
+   <!-- stable, beta, development, alpha, ... -->
+   <state>stable</state>
+   <logo>https://raw.githubusercontent.com/pluginsGLPI/sms/master/{LNAME}.png</logo>
+   <description>
+      <short>
+         <!-- Add as many lang tag you want -->
+         <en>sms GLPI plugin.</en>
+         <fr>Plugin GLPI sms</fr>
+      </short>
+      <long>
+         <!-- Add as many lang tag you want -->
+         <en>A long description for sms GLPI plugin.</en>
+         <fr>Un description longue pour le plugin GLPI sms</fr>
+      </long>
+   </description>
+   <homepage>https://github.com/pluginsGLPI/sms</homepage>
+   <download>https://github.com/pluginsGLPI/sms/releases</download>
+   <issues>https://github.com/pluginsGLPI/sms/issues</issues>
+   <readme>https://github.com/pluginsGLPI/sms/blob/master/README.md</readme>
+   <authors>
+      <!-- Add as many author tag you want -->
+      <author>Teclib'</author>
+   </authors>
+   <versions>
+      <!-- Add as many version tag you want -->
+      <version>
+         <num>0.0.1</num>
+         <!-- Add as many compatibility tag you want -->
+         <compatibility>9.2</compatibility>
+      </version>
+   </versions>
+   <langs>
+      <!-- Add as many lang tag you want -->
+      <lang>en_GB</lang>
+      <lang>fr_FR</lang>
+   </langs>
+   <license>GPL V3+</license>
+   <!--tags>
+      <en>
+         <tag>One tag</tag>
+         <tag>Another tag</tag>
+      </en>
+      <fr>
+         <tag>Un tag</tag>
+         <tag>Un autre tag</tag>
+      </fr>
+   </tags-->
+   <!--screenshots>
+      <screenshot>https://github.com/pluginsGLPI/fields/raw/master/screenshot.png</screenshot>
+      <screenshot>https://github.com/pluginsGLPI/fields/raw/master/screenshot2.png</screenshot>
+   </screenshots-->
+</root>
