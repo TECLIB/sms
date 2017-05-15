@@ -55,26 +55,41 @@ class PluginSmsNotificationSmsSetting extends NotificationSetting {
    }
 
 
-   function showFormConfig() {
+   function showFormConfig(array $options = []) {
       global $CFG_GLPI;
 
-      echo "<form action='".Toolbox::getItemTypeFormURL(__CLASS__)."' method='post'>";
-      echo "<div>";
-      echo "<input type='hidden' name='id' value='1'>";
-      echo "<table class='tab_cadre_fixe'>";
-      echo "<tr class='tab_bg_1'><th colspan='4'>"._n('SMS notification', 'SMS notifications', Session::getPluralNumber())."</th></tr>";
+      $params = [
+         'display'   => true
+      ];
+      $params = array_merge($params, $options);
+
+      $out = "<form action='".Toolbox::getItemTypeFormURL(__CLASS__)."' method='post'>";
+      $out .= "<div>";
+      $out .= "<input type='hidden' name='id' value='1'>";
+      $out .= "<table class='tab_cadre_fixe'>";
+      $out .= "<tr class='tab_bg_1'><th colspan='4'>"._n('SMS notification', 'SMS notifications', Session::getPluralNumber(), 'sms')."</th></tr>";
 
       if ($CFG_GLPI['notifications_sms']) {
          //TODO
-         echo "<tr><td colspan='4'>" . __('SMS notifications are not implemented yet.', 'sms') .  "</td></tr>";
+         $out .= "<tr><td colspan='4'>" . __('SMS notifications are not implemented yet.', 'sms') .  "</td></tr>";
       } else {
-         echo "<tr><td colspan='4'>" . __('Notifications are disabled.')  . " <a href='{$CFG_GLPI['root_doc']}/front/setup.notification.php'>" . _('See configuration') .  "</td></tr>";
+         $out .= "<tr><td colspan='4'>" . __('Notifications are disabled.')  . " <a href='{$CFG_GLPI['root_doc']}/front/setup.notification.php'>" . _('See configuration') .  "</td></tr>";
       }
       $options['candel']     = false;
       if ($CFG_GLPI['notifications_sms']) {
-         $options['addbuttons'] = array('test_sms_send' => __('Send a test SMS to you'));
+         $options['addbuttons'] = array('test_sms_send' => __('Send a test SMS to you', 'sms'));
       }
+
+      //Ignore display parameter since showFormButtons is now ready :/
+      echo $out;
+
       $this->showFormButtons($options);
+
+      /*if ($params['display']) {
+         echo $out;
+      } else {
+         eturn $out
+      }*/
    }
 
 }
