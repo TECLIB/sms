@@ -28,15 +28,18 @@ class PluginSmsNotificationSmsSetting extends atoum {
 
       $instance = new \PluginSmsNotificationSmsSetting();
 
-      $this->variable($CFG_GLPI['notifications_sms'])->isEqualTo(1);
+      $this->variable($CFG_GLPI['notifications_sms'])->isEqualTo(0);
       $out = $instance->showFormConfig();
 
+      $match = strpos($out, 'Notifications are disabled.');
+      $this->integer($match)->isGreaterThanOrEqualTo(0);
+
+      $CFG_GLPI['notifications_sms'] = 1;
+      $out = $instance->showFormConfig();
       $match = strpos($out, 'Notifications are disabled.');
       $this->boolean($match)->isFalse();
 
+      //rest to defaults
       $CFG_GLPI['notifications_sms'] = 0;
-      $out = $instance->showFormConfig();
-      $match = strpos($out, 'Notifications are disabled.');
-      $this->integer($match)->isGreaterThanOrEqualTo(0);
    }
 }
