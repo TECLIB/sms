@@ -43,9 +43,9 @@ function plugin_init_sms() {
    if ($plugin->isActivated('sms')) {
       NotificationTemplateTemplate::registerMode(
          NotificationTemplateTemplate::MODE_SMS,
-         __('SMS', 'plugin_sms')
+         __('SMS', 'plugin_sms'),
+         'sms'
       );
-      $CFG_GLPI['class_notifications_smssetting'] = 'PluginSmsNotificationSmsSetting';
    }
 }
 

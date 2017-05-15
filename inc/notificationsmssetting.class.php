@@ -66,6 +66,7 @@ class PluginSmsNotificationSmsSetting extends NotificationSetting {
 
       if ($CFG_GLPI['notifications_sms']) {
          //TODO
+         echo "<tr><td colspan='4'>" . __('SMS notifications are not implemented yet.', 'sms') .  "</td></tr>";
       } else {
          echo "<tr><td colspan='4'>" . __('Notifications are disabled.')  . " <a href='{$CFG_GLPI['root_doc']}/front/setup.notification.php'>" . _('See configuration') .  "</td></tr>";
       }
