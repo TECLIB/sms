@@ -55,7 +55,7 @@ class PluginSmsNotificationSmsSetting extends NotificationSetting {
    }
 
 
-   function showFormConfig(array $options = []) {
+   function showFormConfig($options = []) {
       global $CFG_GLPI;
 
       $params = [
@@ -80,7 +80,10 @@ class PluginSmsNotificationSmsSetting extends NotificationSetting {
          $options['addbuttons'] = array('test_sms_send' => __('Send a test SMS to you', 'sms'));
       }
 
-      //Ignore display parameter since showFormButtons is now ready :/
+      if (defined('PLUGIN_SMS_UNIT_TESTS')) {
+         return $out;
+      }
+      //Ignore display parameter since showFormButtons is now ready :/ (from all but tests)
       echo $out;
 
       $this->showFormButtons($options);

@@ -3,7 +3,8 @@
 global $CFG_GLPI;
 
 define('GLPI_ROOT', dirname(dirname(dirname(__DIR__))));
-define("GLPI_CONFIG_DIR", GLPI_ROOT . "/tests");
+define('GLPI_CONFIG_DIR', GLPI_ROOT . '/tests');
+define('PLUGIN_SMS_UNIT_TESTS', true);
 include GLPI_ROOT . "/inc/includes.php";
 
 //install plugin
