@@ -140,8 +140,7 @@ class PluginSmsNotificationEventSms implements NotificationEventInterface {
       /** TODO: retrieve user phone */
       if (!isset($data[$field])) {
          //Missing field; set to null
-         //$data[$field] = null;
-         $data[$field] = '0602030405';
+         $data[$field] = null;
       }
 
       return $field;
