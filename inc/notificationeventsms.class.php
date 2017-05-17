@@ -137,8 +137,20 @@ class PluginSmsNotificationEventSms implements NotificationEventInterface {
    static public function getTargetField(&$data) {
       $field = 'phone';
 
-      /** TODO: retrieve user phone */
-      if (!isset($data[$field])) {
+      if (!isset($data[$field])
+         && isset($data['users_id'])) {
+         // No phone set: get one for user
+         $user = new user();
+         $user->getFromDB($data['users_id']);
+
+         $phone_fields = ['mobile', 'phone', 'phone2'];
+         foreach ($phone_fields as $phone_field) {
+            if (isset($user->fields[$phone_field]) && !empty($user->fields[$phone_field])) {
+               $data[$field] = $user->fields[$phone_field];
+               break;
+            }
+         }
+      } else if (!isset($data[$field])) {
          //Missing field; set to null
          $data[$field] = null;
       }
