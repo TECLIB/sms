@@ -25,8 +25,4 @@ class PluginSmsNotificationSms extends atoum {
       $this->array($CFG_GLPI['notifications_modes'])->hasKey('sms');
       $this->array($CFG_GLPI['notifications_modes']['sms'])->isIdenticalTo($expected);
    }
-
-   public function testCanCron() {
-      $this->boolean(PluginSmsNotificationSms::canCron())->isTrue();
-   }
 }

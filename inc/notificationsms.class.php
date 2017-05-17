@@ -105,9 +105,4 @@ class PluginSmsNotificationSms implements NotificationInterface {
 
       return true;
    }
-
-
-   static public function canCron() {
-      return true;
-   }
 }

@@ -15,4 +15,8 @@ class PluginSmsNotificationEventSms extends atoum {
       $this->string(\PluginSmsNotificationEventSms::getTargetField($data))->isIdenticalTo('phone');
       $this->array($data)->isIdenticalTo(['phone' => '+33625885120']);
    }
+
+   public function testCanCron() {
+      $this->boolean(PluginSmsNotificationSms::canCron())->isTrue();
+   }
 }

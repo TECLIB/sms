@@ -145,4 +145,9 @@ class PluginSmsNotificationEventSms implements NotificationEventInterface {
 
       return $field;
    }
+
+
+   static public function canCron() {
+      return true;
+   }
 }
