@@ -17,6 +17,6 @@ class PluginSmsNotificationEventSms extends atoum {
    }
 
    public function testCanCron() {
-      $this->boolean(PluginSmsNotificationSms::canCron())->isTrue();
+      $this->boolean(\PluginSmsNotificationEventSms::canCron())->isTrue();
    }
 }
