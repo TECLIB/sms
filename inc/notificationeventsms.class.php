@@ -162,4 +162,36 @@ class PluginSmsNotificationEventSms implements NotificationEventInterface {
    static public function canCron() {
       return true;
    }
+
+
+   static public function getAdminData() {
+      //no phone available for global admin right now
+      return false;
+   }
+
+
+   static public function getEntityAdminsData($entity) {
+      global $DB, $CFG_GLPI;
+
+      $iterator = $DB->request([
+         'FROM'   => 'glpi_entities',
+         'WHERE'  => ['id' => $entity]
+      ]);
+
+      $admins = [];
+
+      while ($row = $iterator->next()) {
+         $admins[] = [
+            'language'  => $CFG_GLPI['language'],
+            'phone'     => $row['phone_number']
+         ];
+      }
+
+      return $admins;
+   }
+
+
+   static public function send(array $data) {
+      throw new \RuntimeException('Not yet implemented!');
+   }
 }
