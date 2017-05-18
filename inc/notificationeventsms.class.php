@@ -150,7 +150,9 @@ class PluginSmsNotificationEventSms implements NotificationEventInterface {
                break;
             }
          }
-      } else if (!isset($data[$field])) {
+      }
+
+      if (!isset($data[$field])) {
          //Missing field; set to null
          $data[$field] = null;
       }
