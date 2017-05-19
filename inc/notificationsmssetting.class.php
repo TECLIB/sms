@@ -58,12 +58,14 @@ class PluginSmsNotificationSmsSetting extends NotificationSetting {
    function showFormConfig($options = []) {
       global $CFG_GLPI;
 
+      $conf = Config::getConfigurationValues('plugin:sms');
       $params = [
          'display'   => true
       ];
       $params = array_merge($params, $options);
 
       $out = "<form action='".Toolbox::getItemTypeFormURL(__CLASS__)."' method='post'>";
+      $out .= Html::hidden('config_context', ['value' => 'plugin:sms']);
       $out .= "<div>";
       $out .= "<input type='hidden' name='id' value='1'>";
       $out .= "<table class='tab_cadre_fixe'>";
