@@ -32,6 +32,12 @@
  * @return boolean
  */
 function plugin_sms_install() {
+   Config::setConfigurationValues('core', ['notifications_sms' => 0]);
+   Config::setConfigurationValues(
+      'plugin:sms', [
+      ]
+   );
+
    return true;
 }
 
@@ -41,5 +47,9 @@ function plugin_sms_install() {
  * @return boolean
  */
 function plugin_sms_uninstall() {
+   $config = new Config();
+   $config->deleteByCriteria(['context' => 'plugin:sms']);
+   $config->deleteConfigurationValues('core', ['notifications_sms']);
+
    return true;
 }
