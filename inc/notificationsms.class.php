@@ -48,8 +48,8 @@ class PluginSmsNotificationSms implements NotificationInterface {
     * @return boolean
    **/
    static function check($value, $options = []) {
-      //waiting for a user ID
-      return (is_int($value) && $value > 0);
+      //Does nothing, but we could check if $value is actually what we expect as a phone number to send SMS.
+      return true;
    }
 
    static function testNotification() {
@@ -62,7 +62,7 @@ class PluginSmsNotificationSms implements NotificationInterface {
       /*$instance = new self();
       $instance->sendNotification([
          '_itemtype'                   => 'NotificationSms',
-         '_items_id'                   => 0,
+         '_items_id'                   => 1,
          '_notificationtemplates_id'   => 0,
          '_entities_id'                => 0,
          'fromname'                    => 'TEST',
@@ -92,7 +92,7 @@ class PluginSmsNotificationSms implements NotificationInterface {
       $mailqueue = new QueuedMail();
 
       if (!$mailqueue->add(Toolbox::addslashes_deep($data))) {
-         Session::addMessageAfterRedirect(__('Error inserting ajax notification to queue'), true, ERROR);
+         Session::addMessageAfterRedirect(__('Error inserting sms notification to queue', 'sms'), true, ERROR);
          return false;
       } else {
          //TRANS to be written in logs %1$s is the to email / %2$s is the subject of the mail
