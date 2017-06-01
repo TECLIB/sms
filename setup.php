@@ -41,8 +41,8 @@ function plugin_init_sms() {
    $PLUGIN_HOOKS['csrf_compliant']['sms'] = true;
 
    if ($plugin->isActivated('sms')) {
-      NotificationTemplateTemplate::registerMode(
-         NotificationTemplateTemplate::MODE_SMS,
+      Notification_NotificationTemplate::registerMode(
+         Notification_NotificationTemplate::MODE_SMS,
          __('SMS', 'plugin_sms'),
          'sms'
       );

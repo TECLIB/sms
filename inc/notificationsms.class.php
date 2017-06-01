@@ -87,9 +87,9 @@ class PluginSmsNotificationSms implements NotificationInterface {
       $data['body_text']                            = $options['content_text'];
       $data['recipient']                            = $options['to'];
 
-      $data['mode'] = NotificationTemplateTemplate::MODE_SMS;
+      $data['mode'] = Notification_NotificationTemplate::MODE_SMS;
 
-      $mailqueue = new QueuedMail();
+      $mailqueue = new QueuedNotification();
 
       if (!$mailqueue->add(Toolbox::addslashes_deep($data))) {
          Session::addMessageAfterRedirect(__('Error inserting sms notification to queue', 'sms'), true, ERROR);

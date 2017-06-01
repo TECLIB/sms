@@ -34,108 +34,14 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access this file directly");
 }
 
-class PluginSmsNotificationEventSms implements NotificationEventInterface {
-   /**
-    * Raise a SMS notification event
-    *
-    * @param string               $event              Event
-    * @param CommonDBTM           $item               Notification data
-    * @param array                $options            Options
-    * @param string               $label              Label
-    * @param array                $data               Notification data
-    * @param NotificationTarget   $notificationtarget Target
-    * @param NotificationTemplate $template           Template
-    * @param boolean              $notify_me          Whether to notify current user
-    *
-    * @return void
-    */
-   static public function raise(
-      $event,
-      CommonDBTM $item,
-      array $options,
-      $label,
-      array $data,
-      NotificationTarget $notificationtarget,
-      NotificationTemplate $template,
-      $notify_me
-   ) {
-      global $CFG_GLPI;
-      if ($CFG_GLPI['notifications_sms']) {
-         $entity = $notificationtarget->getEntity();
-         $processed    = array();
-         $notprocessed = array();
+class PluginSmsNotificationEventSms extends NotificationEventAbstract implements NotificationEventInterface {
 
-         $targets = getAllDatasFromTable(
-            'glpi_notificationtargets',
-            "notifications_id = {$data['id']}"
-         );
-
-         //Foreach notification targets
-         foreach ($targets as $target) {
-            //Get all users affected by this notification
-            $notificationtarget->addForTarget($target, $options);
-
-            foreach ($notificationtarget->getTargets() as $phone => $users_infos) {
-               if ($label
-                     || $notificationtarget->validateSendTo($event, $users_infos, $notify_me)) {
-                  //If the user have not yet been notified
-                  if (!isset($processed[$users_infos['language']][$phone])) {
-                     //If ther user's language is the same as the template's one
-                     if (isset($notprocessed[$users_infos['language']]
-                                                   [$phone])) {
-                        unset($notprocessed[$users_infos['language']]
-                                                   [$phone]);
-                     }
-                     $options['item'] = $item;
-                     if ($tid = $template->getTemplateByLanguage($notificationtarget,
-                                                                  $users_infos, $event,
-                                                                  $options)) {
-                        //Send notification to the user
-                        if ($label == '') {
-                           $send_data = $template->getDataToSend(
-                              $notificationtarget,
-                              $tid,
-                              $phone,
-                              $users_infos,
-                              $options
-                           );
-                           $send_data['_notificationtemplates_id'] = $data['notificationtemplates_id'];
-                           $send_data['_itemtype']                 = $item->getType();
-                           $send_data['_items_id']                 = $item->getID();
-                           $send_data['_entities_id']              = $entity;
-                           $send_data['mode']                      = $data['mode'];
-
-                           Notification::send($send_data);
-                        } else {
-                           $notificationtarget->getFromDB($target['id']);
-                           echo "<tr class='tab_bg_2'><td>".$label."</td>";
-                           echo "<td>".$notificationtarget->getNameID()."</td>";
-                           echo "<td>".sprintf(__('%1$s (%2$s)'), $template->getName(),
-                                                $users_infos['language'])."</td>";
-                           echo "<td>".$options['mode']."</td>";
-                           echo "<td>".$$phone."</td>";
-                           echo "</tr>";
-                        }
-                        $processed[$users_infos['language']][$phone]
-                                                                  = $users_infos;
-
-                     } else {
-                        $notprocessed[$users_infos['language']][$phone]
-                                                                     = $users_infos;
-                     }
-                  }
-               }
-            }
-         }
-
-         unset($processed);
-         unset($notprocessed);
-      }
+   static public function getTargetFieldName() {
+      return 'phone';
    }
 
-
    static public function getTargetField(&$data) {
-      $field = 'phone';
+      $field = self::getTargetFieldName();
 
       if (!isset($data[$field])
          && isset($data['users_id'])) {

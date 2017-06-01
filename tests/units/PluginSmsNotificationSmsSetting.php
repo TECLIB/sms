@@ -20,7 +20,7 @@ class PluginSmsNotificationSmsSetting extends atoum {
 
    public function testGetMode() {
       $this->string(\PluginSmsNotificationSmsSetting::getMode())
-         ->isIdenticalTo(\NotificationTemplateTemplate::MODE_SMS);
+         ->isIdenticalTo(\Notification_NotificationTemplate::MODE_SMS);
    }
 
    public function testShowFormConfig() {

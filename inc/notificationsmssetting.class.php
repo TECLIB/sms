@@ -51,7 +51,7 @@ class PluginSmsNotificationSmsSetting extends NotificationSetting {
 
 
    static public function getMode() {
-      return NotificationTemplateTemplate::MODE_SMS;
+      return Notification_NotificationTemplate::MODE_SMS;
    }
 
 
